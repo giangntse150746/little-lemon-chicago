@@ -27,27 +27,39 @@ const Index = () => {
                 name: "Sarah Johnson",
                 rating: 5,
                 review: "Amazing Mediterranean food! The lemon herb chicken is absolutely divine.",
+                avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b550?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
               },
               {
                 name: "Mike Chen",
                 rating: 5,
                 review: "Best restaurant in Chicago! Fresh ingredients and incredible flavors.",
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
               },
               {
                 name: "Emma Davis",
                 rating: 5,
                 review: "The atmosphere is perfect for date nights. Highly recommend the seafood pasta!",
+                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
               }
             ].map((review, index) => (
               <Card key={index} className="border-none shadow-lg">
                 <CardContent className="p-6">
-                  <div className="flex mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                    ))}
+                  <div className="flex items-center mb-4">
+                    <img 
+                      src={review.avatar} 
+                      alt={review.name}
+                      className="w-12 h-12 rounded-full mr-4 object-cover"
+                    />
+                    <div>
+                      <p className="font-semibold text-green-800">{review.name}</p>
+                      <div className="flex">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-gray-600 mb-4">"{review.review}"</p>
-                  <p className="font-semibold text-green-800">- {review.name}</p>
+                  <p className="text-gray-600">"{review.review}"</p>
                 </CardContent>
               </Card>
             ))}
@@ -80,8 +92,12 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-              <p className="text-gray-500">Map placeholder</p>
+            <div className="bg-gray-200 rounded-lg h-64 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                alt="Chicago Street View"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>

@@ -6,13 +6,26 @@ const About = () => {
   return (
     <section className="py-16 bg-green-50">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 text-green-800">About Little Lemon</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Since 1995, Little Lemon has been serving Chicago's finest Mediterranean cuisine. 
-            We combine traditional recipes with fresh, locally-sourced ingredients to create 
-            an unforgettable dining experience.
-          </p>
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+          <div>
+            <h2 className="text-4xl font-bold mb-4 text-green-800">About Little Lemon</h2>
+            <p className="text-lg text-gray-600 mb-6">
+              Since 1995, Little Lemon has been serving Chicago's finest Mediterranean cuisine. 
+              We combine traditional recipes with fresh, locally-sourced ingredients to create 
+              an unforgettable dining experience.
+            </p>
+            <p className="text-gray-600">
+              Our family-owned restaurant brings the authentic flavors of the Mediterranean 
+              to your table, using time-honored recipes passed down through generations.
+            </p>
+          </div>
+          <div className="h-80 bg-gray-200 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+              alt="Little Lemon Restaurant Interior"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
         
         <div className="grid md:grid-cols-3 gap-8">

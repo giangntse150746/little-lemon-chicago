@@ -4,8 +4,17 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-500 overflow-hidden">
-      <div className="absolute inset-0 bg-black opacity-20"></div>
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"
+        }}
+      />
+      <div className="absolute inset-0 bg-black opacity-60"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-yellow-500/20"></div>
+      
       <div className="relative z-10 text-center text-white px-4">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">
           Little Lemon
