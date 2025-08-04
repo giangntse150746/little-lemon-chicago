@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -200,7 +201,7 @@ const Order = () => {
                       </Card>
                     </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
