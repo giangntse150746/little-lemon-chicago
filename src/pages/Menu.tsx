@@ -1,9 +1,9 @@
-
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Menu = () => {
   const menuCategories = [
@@ -53,48 +53,107 @@ const Menu = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-yellow-400 to-yellow-500 py-16">
+      <motion.section 
+        className="bg-gradient-to-r from-yellow-400 to-yellow-500 py-16"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-white mb-4 drop-shadow-lg">Our Menu</h1>
-          <p className="text-xl text-white drop-shadow">Authentic Mediterranean flavors crafted with love</p>
+          <motion.h1 
+            className="text-5xl font-bold text-white mb-4 drop-shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Our Menu
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-white drop-shadow"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Authentic Mediterranean flavors crafted with love
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Menu Categories */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
           {menuCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="mb-12">
+            <motion.div 
+              key={categoryIndex} 
+              className="mb-12"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+            >
               <h2 className="text-3xl font-bold text-green-800 mb-8 border-b-2 border-yellow-400 pb-2">
                 {category.category}
               </h2>
-              <div className="grid gap-6">
+              <motion.div 
+                className="grid gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={containerVariants}
+              >
                 {category.items.map((item, itemIndex) => (
-                  <Card key={itemIndex} className="border-none shadow-md hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-green-800 mb-2">{item.name}</h3>
-                          <p className="text-gray-600">{item.description}</p>
+                  <motion.div key={itemIndex} variants={itemVariants}>
+                    <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <h3 className="text-xl font-semibold text-green-800 mb-2">{item.name}</h3>
+                            <p className="text-gray-600">{item.description}</p>
+                          </div>
+                          <span className="text-2xl font-bold text-yellow-600 ml-4">{item.price}</span>
                         </div>
-                        <span className="text-2xl font-bold text-yellow-600 ml-4">{item.price}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* Order Online CTA */}
-      <section className="py-16 bg-green-50">
+      <motion.section 
+        className="py-16 bg-green-50"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-green-800 mb-4">Ready to Order?</h2>
           <p className="text-lg text-gray-600 mb-8">
@@ -106,7 +165,7 @@ const Menu = () => {
             </Button>
           </Link>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>

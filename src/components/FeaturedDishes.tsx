@@ -2,6 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const FeaturedDishes = () => {
   const dishes = [
@@ -25,44 +26,87 @@ const FeaturedDishes = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
     <section className="py-16">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl font-bold mb-4 text-green-800">Featured Dishes</h2>
           <p className="text-lg text-gray-600">Discover our chef's signature creations</p>
-        </div>
+        </motion.div>
         
-        <div className="grid md:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={containerVariants}
+        >
           {dishes.map((dish, index) => (
-            <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-shadow group overflow-hidden">
-              <CardContent className="p-0">
-                <div className="h-48 bg-gray-200 overflow-hidden">
-                  <img 
-                    src={dish.image} 
-                    alt={dish.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-green-800">{dish.name}</h3>
-                  <p className="text-gray-600 mb-4">{dish.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold text-yellow-600">{dish.price}</span>
+            <motion.div key={index} variants={itemVariants}>
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow group overflow-hidden">
+                <CardContent className="p-0">
+                  <motion.div 
+                    className="h-48 bg-gray-200 overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <img 
+                      src={dish.image} 
+                      alt={dish.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold mb-2 text-green-800">{dish.name}</h3>
+                    <p className="text-gray-600 mb-4">{dish.description}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-2xl font-bold text-yellow-600">{dish.price}</span>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         
-        <div className="text-center mt-12">
+        <motion.div 
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           <Link to="/menu">
             <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-green-800 px-8 py-3">
               View Full Menu
             </Button>
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
