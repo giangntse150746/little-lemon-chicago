@@ -50,11 +50,7 @@ const Hero = () => {
             </Button>
           </Link>
           <Link to="/reserve">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-green-800 px-8 py-3 text-lg"
-            >
+            <Button size="lg" variant="outline" className="hover:text-green-800 px-8 py-3 text-lg">
               Reserve Table
             </Button>
           </Link>
