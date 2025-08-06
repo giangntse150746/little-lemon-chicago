@@ -6,13 +6,19 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion'
-import { useState, useMemo } from 'react'
-import { Search, Star, Clock, MapPin, Phone, Heart } from 'lucide-react'
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react'
+import { Search, Star, Clock, MapPin, Phone, Heart, Loader2 } from 'lucide-react'
+import { getImagePath } from '@/data/menuImages'
 
 const Menu = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [favorites, setFavorites] = useState<string[]>([])
+  const [displayedItems, setDisplayedItems] = useState(10)
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+  const loadingRef = useRef<HTMLDivElement>(null)
 
   const menuCategories = [
     {
@@ -22,8 +28,7 @@ const Menu = () => {
           name: 'Hummus with Pita',
           description: 'Creamy chickpea spread with warm pita bread',
           price: '$8.99',
-          image:
-            'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Hummus with Pita'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -32,8 +37,7 @@ const Menu = () => {
           name: 'Mediterranean Olives',
           description: 'Mixed olives with herbs and olive oil',
           price: '$6.99',
-          image:
-            'https://images.unsplash.com/photo-1452827073306-6e6e661baf57?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Olives'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -42,8 +46,7 @@ const Menu = () => {
           name: 'Spanakopita',
           description: 'Crispy phyllo pastry with spinach and feta',
           price: '$9.99',
-          image:
-            'https://images.unsplash.com/photo-1544124094-6b7f1e6a7f12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Spanakopita'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -52,8 +55,7 @@ const Menu = () => {
           name: 'Dolmades',
           description: 'Grape leaves stuffed with rice and herbs',
           price: '$7.99',
-          image:
-            'https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Dolmades'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -67,8 +69,7 @@ const Menu = () => {
           name: 'Greek Village Salad',
           description: 'Tomatoes, cucumbers, olives, feta with olive oil',
           price: '$12.99',
-          image:
-            'https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Greek Village Salad'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -77,8 +78,7 @@ const Menu = () => {
           name: 'Tabbouleh',
           description: 'Fresh parsley, tomatoes, bulgur with lemon dressing',
           price: '$10.99',
-          image:
-            'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Tabbouleh'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -87,8 +87,7 @@ const Menu = () => {
           name: 'Mediterranean Quinoa',
           description: 'Quinoa with roasted vegetables and herbs',
           price: '$13.99',
-          image:
-            'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Quinoa'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -102,8 +101,7 @@ const Menu = () => {
           name: 'Lemon Herb Grilled Chicken',
           description: 'Tender chicken with Mediterranean herbs',
           price: '$24.99',
-          image:
-            'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Lemon Herb Grilled Chicken'),
           popular: true,
           spicy: false,
           vegetarian: false
@@ -112,8 +110,7 @@ const Menu = () => {
           name: 'Moussaka',
           description: 'Traditional Greek layered dish with eggplant',
           price: '$22.99',
-          image:
-            'https://images.unsplash.com/photo-1563379091339-03246963d49a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Moussaka'),
           popular: true,
           spicy: false,
           vegetarian: false
@@ -122,8 +119,7 @@ const Menu = () => {
           name: 'Seafood Pasta',
           description: 'Fresh seafood with cherry tomatoes and feta',
           price: '$28.99',
-          image:
-            'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Seafood Pasta'),
           popular: false,
           spicy: false,
           vegetarian: false
@@ -132,8 +128,7 @@ const Menu = () => {
           name: 'Lamb Chops',
           description: 'Grilled lamb with rosemary and garlic',
           price: '$32.99',
-          image:
-            'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Lamb Chops'),
           popular: true,
           spicy: false,
           vegetarian: false
@@ -142,8 +137,7 @@ const Menu = () => {
           name: 'Vegetarian Stuffed Peppers',
           description: 'Bell peppers stuffed with rice and vegetables',
           price: '$18.99',
-          image:
-            'https://images.unsplash.com/photo-1566336780623-01c2b1a52ee5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Vegetarian Stuffed Peppers'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -157,8 +151,7 @@ const Menu = () => {
           name: 'Baklava',
           description: 'Sweet phyllo pastry with nuts and honey',
           price: '$6.99',
-          image:
-            'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Baklava'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -167,8 +160,7 @@ const Menu = () => {
           name: 'Lemon Panna Cotta',
           description: 'Creamy lemon dessert with berry compote',
           price: '$7.99',
-          image:
-            'https://images.unsplash.com/photo-1488477304112-4944851de03d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Lemon Panna Cotta'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -177,8 +169,7 @@ const Menu = () => {
           name: 'Greek Yogurt Parfait',
           description: 'With honey, nuts, and seasonal fruit',
           price: '$5.99',
-          image:
-            'https://images.unsplash.com/photo-1488900128323-21503983a07e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Greek Yogurt Parfait'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -192,8 +183,7 @@ const Menu = () => {
           name: 'Fresh Lemonade',
           description: 'Made with real lemons and mint',
           price: '$3.99',
-          image:
-            'https://images.unsplash.com/photo-1523371285671-4eeb8d2ebeb8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Fresh Lemonade'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -202,8 +192,7 @@ const Menu = () => {
           name: 'Greek Coffee',
           description: 'Traditional strong coffee',
           price: '$2.99',
-          image:
-            'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Greek Coffee'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -212,8 +201,7 @@ const Menu = () => {
           name: 'Mediterranean Iced Tea',
           description: 'Herbal blend with lemon',
           price: '$3.49',
-          image:
-            'https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Iced Tea'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -222,8 +210,7 @@ const Menu = () => {
           name: 'House Wine',
           description: 'Red or white wine selection',
           price: '$6.99',
-          image:
-            'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('House Wine'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -248,6 +235,55 @@ const Menu = () => {
     )
   }, [searchTerm, selectedCategory, menuCategories])
 
+  // Reset displayed items when filters change
+  useEffect(() => {
+    setDisplayedItems(10)
+    setHasMore(filteredItems.length > 10)
+  }, [filteredItems.length])
+
+  // Lazy load function
+  const loadMoreItems = useCallback(() => {
+    if (isLoading || !hasMore) return
+
+    setIsLoading(true)
+
+    // Simulate loading delay
+    setTimeout(() => {
+      const newDisplayedItems = Math.min(displayedItems + 10, filteredItems.length)
+      setDisplayedItems(newDisplayedItems)
+      setHasMore(newDisplayedItems < filteredItems.length)
+      setIsLoading(false)
+    }, 500)
+  }, [isLoading, hasMore, displayedItems, filteredItems.length])
+
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect()
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          loadMoreItems()
+        }
+      },
+      {
+        rootMargin: '100px'
+      }
+    )
+
+    if (loadingRef.current) {
+      observerRef.current.observe(loadingRef.current)
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
+    }
+  }, [loadMoreItems, hasMore, isLoading])
+
   const toggleFavorite = (itemName: string) => {
     setFavorites((prev) => (prev.includes(itemName) ? prev.filter((name) => name !== itemName) : [...prev, itemName]))
   }
@@ -271,13 +307,15 @@ const Menu = () => {
     }
   }
 
+  const displayedFilteredItems = filteredItems.slice(0, displayedItems)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-yellow-50">
       <Navigation />
 
       {/* Enhanced Hero Section */}
       <motion.section
-        className="relative bg-gradient-to-r from-green-600 via-green-500 to-yellow-500 py-20 overflow-hidden"
+        className="relative bg-gradient-to-r from-green-600 via-green-500 to-tertiary py-20 overflow-hidden"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -299,7 +337,7 @@ const Menu = () => {
             Our Menu
           </motion.h1>
           <motion.p
-            className="text-2xl text-white drop-shadow-lg mb-8 max-w-2xl mx-auto"
+            className="text-xl text-white drop-shadow-lg mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -309,20 +347,20 @@ const Menu = () => {
 
           {/* Search and Filter Bar */}
           <motion.div
-            className="max-w-2xl mx-auto bg-white rounded-full shadow-2xl p-2"
+            className="max-w-3xl mx-auto bg-white rounded-full shadow-2xl p-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <div className="flex items-center gap-2">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-green-700 w-5 h-5" />
                 <Input
                   type="text"
                   placeholder="Search for dishes..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 border-0 focus:ring-0 text-lg"
+                  className="pl-10 border-green-700 focus:!ring-0 text-lg rounded-3xl"
                 />
               </div>
               <div className="flex gap-2">
@@ -377,18 +415,18 @@ const Menu = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="flex items-center mb-4">
-              <Star className="w-6 h-6 text-yellow-500 mr-2" />
+              <Star className="w-6 h-6 text-tertiary mr-2" />
               <h3 className="text-xl font-bold text-green-800">Chef's Pick</h3>
             </div>
             <div className="flex items-center mb-4">
               <img
-                src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                src={getImagePath('Chef Pick')}
                 alt="Chef's Pick"
                 className="w-20 h-20 rounded-xl object-cover mr-4 shadow-lg"
               />
               <div>
                 <h4 className="font-bold text-green-800 text-lg">Lemon Herb Chicken</h4>
-                <p className="text-yellow-600 font-bold text-xl">$24.99</p>
+                <p className="text-secondary font-bold text-xl">$24.99</p>
                 <Badge className="bg-green-100 text-green-800 mt-1">Most Popular</Badge>
               </div>
             </div>
@@ -436,7 +474,7 @@ const Menu = () => {
             transition={{ duration: 0.3 }}
           >
             <img
-              src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+              src={getImagePath('Mediterranean Ambiance')}
               alt="Mediterranean ambiance"
               className="w-full h-56 object-cover"
             />
@@ -507,7 +545,7 @@ const Menu = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="text-gray-600">
-              Showing {filteredItems.length} items
+              Showing {displayedFilteredItems.length} of {filteredItems.length} items
               {searchTerm && ` for "${searchTerm}"`}
               {selectedCategory !== 'All' && ` in ${selectedCategory}`}
             </p>
@@ -523,12 +561,12 @@ const Menu = () => {
               animate="visible"
               variants={containerVariants}
             >
-              {filteredItems.map((item, itemIndex) => (
+              {displayedFilteredItems.map((item, itemIndex) => (
                 <motion.div key={`${item.name}-${itemIndex}`} variants={itemVariants}>
                   <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group bg-white">
-                    <CardContent className="p-0">
-                      <div className="flex">
-                        <div className="w-40 h-40 flex-shrink-0 relative">
+                    <CardContent className="p-0 h-full">
+                      <div className="flex flex-col h-full">
+                        <div className="h-60 flex-shrink-0 relative overflow-hidden">
                           <img
                             src={item.image}
                             alt={item.name}
@@ -536,7 +574,7 @@ const Menu = () => {
                           />
                           <div className="absolute top-2 left-2 flex gap-1">
                             {item.popular && (
-                              <Badge className="bg-yellow-500 text-white text-xs">
+                              <Badge className="bg-tertiary text-white text-xs">
                                 <Star className="w-3 h-3 mr-1" />
                                 Popular
                               </Badge>
@@ -559,7 +597,7 @@ const Menu = () => {
                             <h3 className="text-xl font-bold text-green-800 group-hover:text-green-600 transition-colors">
                               {item.name}
                             </h3>
-                            <span className="text-2xl font-bold text-yellow-600 ml-4">{item.price}</span>
+                            <span className="text-2xl font-bold text-secondary ml-4">{item.price}</span>
                           </div>
                           <p className="text-gray-600 text-sm leading-relaxed mb-4">{item.description}</p>
                           <div className="flex items-center justify-between">
@@ -578,6 +616,24 @@ const Menu = () => {
               ))}
             </motion.div>
           </AnimatePresence>
+
+          {/* Loading Indicator */}
+          {hasMore && (
+            <motion.div
+              ref={loadingRef}
+              className="flex justify-center items-center py-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="flex items-center gap-3 text-green-600">
+                <Loader2 className="w-6 h-6 animate-spin" />
+                <span className="text-lg font-medium">
+                  {isLoading ? 'Loading more dishes...' : 'Scroll to load more'}
+                </span>
+              </div>
+            </motion.div>
+          )}
 
           {/* No Results Message */}
           {filteredItems.length === 0 && (
@@ -601,12 +657,26 @@ const Menu = () => {
               </Button>
             </motion.div>
           )}
+
+          {/* End of Results Message */}
+          {!hasMore && displayedFilteredItems.length > 0 && (
+            <motion.div
+              className="text-center py-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="text-4xl mb-4">🎉</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">You've seen all our dishes!</h3>
+              <p className="text-gray-600">Thanks for exploring our menu</p>
+            </motion.div>
+          )}
         </main>
       </div>
 
       {/* Enhanced Order Online CTA */}
       <motion.section
-        className="py-20 bg-gradient-to-r from-green-600 to-green-700 relative overflow-hidden"
+        className="py-20 bg-gradient-to-r from-gray-100 to-gray-200 relative overflow-hidden"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -615,7 +685,7 @@ const Menu = () => {
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <motion.h2
-            className="text-4xl font-bold text-white mb-6"
+            className="text-4xl font-bold text-primary mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -624,7 +694,7 @@ const Menu = () => {
             Ready to Experience Mediterranean Magic?
           </motion.h2>
           <motion.p
-            className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
+            className="text-xl text-primary opacity-50 mb-8 max-w-xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -642,18 +712,11 @@ const Menu = () => {
             <Link to="/order">
               <Button
                 size="lg"
-                className="bg-yellow-500 hover:bg-yellow-400 text-green-800 px-8 py-4 text-lg font-bold shadow-xl"
+                className="bg-primary hover:bg-yellow-400 hover:text-primary px-8 py-4 text-lg font-bold shadow-lg"
               >
                 Order Online Now
               </Button>
             </Link>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-green-800 px-8 py-4 text-lg font-bold"
-            >
-              View Full Menu
-            </Button>
           </motion.div>
         </div>
       </motion.section>

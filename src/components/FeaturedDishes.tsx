@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 import { motion, easeOut } from 'framer-motion'
+import { getImagePath } from '@/data/menuImages'
 
 const FeaturedDishes = () => {
   const dishes = [
@@ -9,21 +10,19 @@ const FeaturedDishes = () => {
       name: 'Lemon Herb Grilled Chicken',
       description: 'Tender chicken breast marinated in lemon, herbs, and Mediterranean spices',
       price: '$24.99',
-      image:
-        'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      image: getImagePath('Lemon Herb Grilled Chicken')
     },
     {
       name: 'Mediterranean Seafood Pasta',
       description: 'Fresh seafood with cherry tomatoes, olives, and feta cheese in olive oil',
       price: '$28.99',
-      image:
-        'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      image: getImagePath('Mediterranean Seafood Pasta')
     },
     {
       name: 'Greek-Style Lamb Chops',
       description: 'Grilled lamb chops with rosemary, garlic, and lemon zest',
       price: '$32.99',
-      image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      image: getImagePath('Greek-Style Lamb Chops')
     }
   ]
 
@@ -82,7 +81,7 @@ const FeaturedDishes = () => {
                     <h3 className="text-xl font-semibold mb-2 text-green-800">{dish.name}</h3>
                     <p className="text-gray-600 mb-4">{dish.description}</p>
                     <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-yellow-600">{dish.price}</span>
+                      <span className="text-2xl font-bold text-secondary">{dish.price}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -99,7 +98,7 @@ const FeaturedDishes = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Link to="/menu">
-            <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-green-800 px-8 py-3">
+            <Button size="lg" className="bg-green-800 hover:bg-green-700 text-md px-8 py-3">
               View Full Menu
             </Button>
           </Link>
