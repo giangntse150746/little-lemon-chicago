@@ -14,7 +14,7 @@ const Hero = () => {
         }}
       />
       <div className="absolute inset-0 bg-black opacity-60"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-yellow-500/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-tertiary/20"></div>
 
       <motion.div
         className="relative z-10 text-center text-white px-4"

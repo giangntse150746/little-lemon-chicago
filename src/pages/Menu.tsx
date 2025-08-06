@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion'
 import { useState, useMemo } from 'react'
 import { Search, Star, Clock, MapPin, Phone, Heart } from 'lucide-react'
+import { getImagePath } from '@/data/menuImages'
 
 const Menu = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -22,8 +23,7 @@ const Menu = () => {
           name: 'Hummus with Pita',
           description: 'Creamy chickpea spread with warm pita bread',
           price: '$8.99',
-          image:
-            'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Hummus with Pita'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -32,8 +32,7 @@ const Menu = () => {
           name: 'Mediterranean Olives',
           description: 'Mixed olives with herbs and olive oil',
           price: '$6.99',
-          image:
-            'https://images.unsplash.com/photo-1452827073306-6e6e661baf57?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Olives'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -42,8 +41,7 @@ const Menu = () => {
           name: 'Spanakopita',
           description: 'Crispy phyllo pastry with spinach and feta',
           price: '$9.99',
-          image:
-            'https://images.unsplash.com/photo-1544124094-6b7f1e6a7f12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Spanakopita'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -52,8 +50,7 @@ const Menu = () => {
           name: 'Dolmades',
           description: 'Grape leaves stuffed with rice and herbs',
           price: '$7.99',
-          image:
-            'https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Dolmades'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -67,8 +64,7 @@ const Menu = () => {
           name: 'Greek Village Salad',
           description: 'Tomatoes, cucumbers, olives, feta with olive oil',
           price: '$12.99',
-          image:
-            'https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Greek Village Salad'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -77,8 +73,7 @@ const Menu = () => {
           name: 'Tabbouleh',
           description: 'Fresh parsley, tomatoes, bulgur with lemon dressing',
           price: '$10.99',
-          image:
-            'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Tabbouleh'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -87,8 +82,7 @@ const Menu = () => {
           name: 'Mediterranean Quinoa',
           description: 'Quinoa with roasted vegetables and herbs',
           price: '$13.99',
-          image:
-            'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Quinoa'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -102,8 +96,7 @@ const Menu = () => {
           name: 'Lemon Herb Grilled Chicken',
           description: 'Tender chicken with Mediterranean herbs',
           price: '$24.99',
-          image:
-            'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Lemon Herb Grilled Chicken'),
           popular: true,
           spicy: false,
           vegetarian: false
@@ -112,8 +105,7 @@ const Menu = () => {
           name: 'Moussaka',
           description: 'Traditional Greek layered dish with eggplant',
           price: '$22.99',
-          image:
-            'https://images.unsplash.com/photo-1563379091339-03246963d49a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Moussaka'),
           popular: true,
           spicy: false,
           vegetarian: false
@@ -122,8 +114,7 @@ const Menu = () => {
           name: 'Seafood Pasta',
           description: 'Fresh seafood with cherry tomatoes and feta',
           price: '$28.99',
-          image:
-            'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Seafood Pasta'),
           popular: false,
           spicy: false,
           vegetarian: false
@@ -132,8 +123,7 @@ const Menu = () => {
           name: 'Lamb Chops',
           description: 'Grilled lamb with rosemary and garlic',
           price: '$32.99',
-          image:
-            'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Lamb Chops'),
           popular: true,
           spicy: false,
           vegetarian: false
@@ -142,8 +132,7 @@ const Menu = () => {
           name: 'Vegetarian Stuffed Peppers',
           description: 'Bell peppers stuffed with rice and vegetables',
           price: '$18.99',
-          image:
-            'https://images.unsplash.com/photo-1566336780623-01c2b1a52ee5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Vegetarian Stuffed Peppers'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -157,8 +146,7 @@ const Menu = () => {
           name: 'Baklava',
           description: 'Sweet phyllo pastry with nuts and honey',
           price: '$6.99',
-          image:
-            'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Baklava'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -167,8 +155,7 @@ const Menu = () => {
           name: 'Lemon Panna Cotta',
           description: 'Creamy lemon dessert with berry compote',
           price: '$7.99',
-          image:
-            'https://images.unsplash.com/photo-1488477304112-4944851de03d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Lemon Panna Cotta'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -177,8 +164,7 @@ const Menu = () => {
           name: 'Greek Yogurt Parfait',
           description: 'With honey, nuts, and seasonal fruit',
           price: '$5.99',
-          image:
-            'https://images.unsplash.com/photo-1488900128323-21503983a07e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Greek Yogurt Parfait'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -192,8 +178,7 @@ const Menu = () => {
           name: 'Fresh Lemonade',
           description: 'Made with real lemons and mint',
           price: '$3.99',
-          image:
-            'https://images.unsplash.com/photo-1523371285671-4eeb8d2ebeb8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Fresh Lemonade'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -202,8 +187,7 @@ const Menu = () => {
           name: 'Greek Coffee',
           description: 'Traditional strong coffee',
           price: '$2.99',
-          image:
-            'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Greek Coffee'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -212,8 +196,7 @@ const Menu = () => {
           name: 'Mediterranean Iced Tea',
           description: 'Herbal blend with lemon',
           price: '$3.49',
-          image:
-            'https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('Mediterranean Iced Tea'),
           popular: false,
           spicy: false,
           vegetarian: true
@@ -222,8 +205,7 @@ const Menu = () => {
           name: 'House Wine',
           description: 'Red or white wine selection',
           price: '$6.99',
-          image:
-            'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+          image: getImagePath('House Wine'),
           popular: true,
           spicy: false,
           vegetarian: true
@@ -277,7 +259,7 @@ const Menu = () => {
 
       {/* Enhanced Hero Section */}
       <motion.section
-        className="relative bg-gradient-to-r from-green-600 via-green-500 to-yellow-500 py-20 overflow-hidden"
+        className="relative bg-gradient-to-r from-green-600 via-green-500 to-tertiary py-20 overflow-hidden"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -377,18 +359,18 @@ const Menu = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="flex items-center mb-4">
-              <Star className="w-6 h-6 text-yellow-500 mr-2" />
+              <Star className="w-6 h-6 text-tertiary mr-2" />
               <h3 className="text-xl font-bold text-green-800">Chef's Pick</h3>
             </div>
             <div className="flex items-center mb-4">
               <img
-                src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                src={getImagePath('Chef Pick')}
                 alt="Chef's Pick"
                 className="w-20 h-20 rounded-xl object-cover mr-4 shadow-lg"
               />
               <div>
                 <h4 className="font-bold text-green-800 text-lg">Lemon Herb Chicken</h4>
-                <p className="text-yellow-600 font-bold text-xl">$24.99</p>
+                <p className="text-secondary font-bold text-xl">$24.99</p>
                 <Badge className="bg-green-100 text-green-800 mt-1">Most Popular</Badge>
               </div>
             </div>
@@ -436,7 +418,7 @@ const Menu = () => {
             transition={{ duration: 0.3 }}
           >
             <img
-              src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+              src={getImagePath('Mediterranean Ambiance')}
               alt="Mediterranean ambiance"
               className="w-full h-56 object-cover"
             />
@@ -536,7 +518,7 @@ const Menu = () => {
                           />
                           <div className="absolute top-2 left-2 flex gap-1">
                             {item.popular && (
-                              <Badge className="bg-yellow-500 text-white text-xs">
+                              <Badge className="bg-tertiary text-white text-xs">
                                 <Star className="w-3 h-3 mr-1" />
                                 Popular
                               </Badge>
@@ -559,7 +541,7 @@ const Menu = () => {
                             <h3 className="text-xl font-bold text-green-800 group-hover:text-green-600 transition-colors">
                               {item.name}
                             </h3>
-                            <span className="text-2xl font-bold text-yellow-600 ml-4">{item.price}</span>
+                            <span className="text-2xl font-bold text-secondary ml-4">{item.price}</span>
                           </div>
                           <p className="text-gray-600 text-sm leading-relaxed mb-4">{item.description}</p>
                           <div className="flex items-center justify-between">
@@ -642,7 +624,7 @@ const Menu = () => {
             <Link to="/order">
               <Button
                 size="lg"
-                className="bg-yellow-500 hover:bg-yellow-400 text-green-800 px-8 py-4 text-lg font-bold shadow-xl"
+                className="bg-tertiary hover:bg-yellow-400 text-green-800 px-8 py-4 text-lg font-bold shadow-xl"
               >
                 Order Online Now
               </Button>

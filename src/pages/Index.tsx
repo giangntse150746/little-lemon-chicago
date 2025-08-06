@@ -38,7 +38,7 @@ const Index = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2
-            className="text-3xl font-bold text-center mb-12 text-green-800"
+            className="text-3xl font-bold text-center mb-12 text-secondary"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -110,18 +110,18 @@ const Index = () => {
             variants={containerVariants}
           >
             <motion.div variants={itemVariants}>
-              <h2 className="text-3xl font-bold mb-6 text-green-800">Visit Us</h2>
+              <h2 className="text-3xl font-bold mb-8 text-green-800">Visit Us</h2>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <MapPin className="w-6 h-6 text-yellow-500 mr-3" />
+                  <MapPin className="w-6 h-6 text-tertiary mr-3" />
                   <p>123 Michigan Avenue, Chicago, IL 60601</p>
                 </div>
                 <div className="flex items-center">
-                  <Phone className="w-6 h-6 text-yellow-500 mr-3" />
+                  <Phone className="w-6 h-6 text-tertiary mr-3" />
                   <p>(312) 555-LEMON</p>
                 </div>
                 <div className="flex items-center">
-                  <Clock className="w-6 h-6 text-yellow-500 mr-3" />
+                  <Clock className="w-6 h-6 text-tertiary mr-3" />
                   <div>
                     <p>Mon-Thu: 11:00 AM - 10:00 PM</p>
                     <p>Fri-Sat: 11:00 AM - 11:00 PM</p>
@@ -130,11 +130,11 @@ const Index = () => {
                 </div>
               </div>
             </motion.div>
-            <motion.div className="bg-gray-200 rounded-lg h-64 overflow-hidden" variants={itemVariants}>
+            <motion.div className="bg-gray-200 rounded-lg h-64 overflow-hidden group" variants={itemVariants}>
               <img
-                src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="/images/introduction/visit-us.jpg"
                 alt="Chicago Street View"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
               />
             </motion.div>
           </motion.div>

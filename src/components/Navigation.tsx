@@ -40,32 +40,32 @@ const Navigation = () => {
            >
              <Link 
                to="/" 
-               className={`hover:text-yellow-600 hover:scale-105 transition-all duration-300 ${
-                 location.pathname === '/' ? 'text-yellow-600' : ''
+               className={`hover:text-secondary hover:scale-105 transition-all duration-300 ${
+                 location.pathname === '/' ? 'text-secondary' : ''
                }`}
              >
                Home
              </Link>
              <Link 
                to="/menu" 
-               className={`hover:text-yellow-600 hover:scale-105 transition-all duration-300 ${
-                 location.pathname === '/menu' ? 'text-yellow-600' : ''
+               className={`hover:text-secondary hover:scale-105 transition-all duration-300 ${
+                 location.pathname === '/menu' ? 'text-secondary' : ''
                }`}
              >
                Menu
              </Link>
              <Link 
                to="/order" 
-               className={`hover:text-yellow-600 hover:scale-105 transition-all duration-300 ${
-                 location.pathname === '/order' ? 'text-yellow-600' : ''
+               className={`hover:text-secondary hover:scale-105 transition-all duration-300 ${
+                 location.pathname === '/order' ? 'text-secondary' : ''
                }`}
              >
                Order Online
              </Link>
              <Link 
                to="/reserve" 
-               className={`hover:text-yellow-600 hover:scale-105 transition-all duration-300 ${
-                 location.pathname === '/reserve' ? 'text-yellow-600' : ''
+               className={`hover:text-secondary hover:scale-105 transition-all duration-300 ${
+                 location.pathname === '/reserve' ? 'text-secondary' : ''
                }`}
              >
                Reserve Table
@@ -82,8 +82,8 @@ const Navigation = () => {
              <div className="flex flex-col space-y-4 p-4">
                <Link
                  to="/"
-                 className={`hover:text-yellow-600 transition-colors ${
-                   location.pathname === '/' ? 'text-yellow-600' : 'text-green-800'
+                 className={`hover:text-secondary transition-colors ${
+                   location.pathname === '/' ? 'text-secondary' : 'text-green-800'
                  }`}
                  onClick={() => setIsMenuOpen(false)}
                >
@@ -91,8 +91,8 @@ const Navigation = () => {
                </Link>
                <Link
                  to="/menu"
-                 className={`hover:text-yellow-600 transition-colors ${
-                   location.pathname === '/menu' ? 'text-yellow-600' : 'text-green-800'
+                 className={`hover:text-secondary transition-colors ${
+                   location.pathname === '/menu' ? 'text-secondary' : 'text-green-800'
                  }`}
                  onClick={() => setIsMenuOpen(false)}
                >
@@ -100,8 +100,8 @@ const Navigation = () => {
                </Link>
                <Link
                  to="/order"
-                 className={`hover:text-yellow-600 transition-colors ${
-                   location.pathname === '/order' ? 'text-yellow-600' : 'text-green-800'
+                 className={`hover:text-secondary transition-colors ${
+                   location.pathname === '/order' ? 'text-secondary' : 'text-green-800'
                  }`}
                  onClick={() => setIsMenuOpen(false)}
                >
@@ -109,8 +109,8 @@ const Navigation = () => {
                </Link>
                <Link
                  to="/reserve"
-                 className={`hover:text-yellow-600 transition-colors ${
-                   location.pathname === '/reserve' ? 'text-yellow-600' : 'text-green-800'
+                 className={`hover:text-secondary transition-colors ${
+                   location.pathname === '/reserve' ? 'text-secondary' : 'text-green-800'
                  }`}
                  onClick={() => setIsMenuOpen(false)}
                >

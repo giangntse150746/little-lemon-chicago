@@ -9,7 +9,7 @@ const Footer = () => {
             <img
               src="/lovable-uploads/b39ca12f-4c13-4645-859a-87be54755c5f.png"
               alt="Little Lemon Logo"
-              className="h-12 mb-4 brightness-0 invert"
+              className="w-3/4 mb-4 brightness-0 invert -translate-y-4"
             />
             <p className="text-green-100">
               Serving Chicago's finest Mediterranean cuisine since 1995. Experience the authentic flavors of the
@@ -52,6 +52,9 @@ const Footer = () => {
 
         <div className="border-t border-green-700 mt-8 pt-8 text-center">
           <p className="text-green-100">© 2024 Little Lemon Restaurant. All rights reserved.</p>
+          <p className="text-yellow-300/75 translate-y-4 text-xs hover:text-yellow-300 hover:text-2xl hover:translate-y-2 duration-300">
+            Author: Giang, N.T.
+          </p>
         </div>
       </div>
     </footer>

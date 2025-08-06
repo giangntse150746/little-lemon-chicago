@@ -229,7 +229,7 @@ const Reserve = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-yellow-500 hover:bg-yellow-400 text-green-800 py-3 text-lg"
+                    className="w-full bg-tertiary hover:bg-yellow-400 text-green-800 py-3 text-lg"
                   >
                     Request Reservation
                   </Button>
@@ -249,7 +249,7 @@ const Reserve = () => {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold text-green-800 mb-4 flex items-center">
-                    <Clock className="w-6 h-6 mr-2 text-yellow-500" />
+                    <Clock className="w-6 h-6 mr-2 text-tertiary" />
                     Restaurant Hours
                   </h3>
                   <div className="space-y-2 text-gray-600">
@@ -271,7 +271,7 @@ const Reserve = () => {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold text-green-800 mb-4 flex items-center">
-                    <Users className="w-6 h-6 mr-2 text-yellow-500" />
+                    <Users className="w-6 h-6 mr-2 text-tertiary" />
                     Reservation Policy
                   </h3>
                   <div className="space-y-3 text-gray-600">
@@ -288,7 +288,7 @@ const Reserve = () => {
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold text-green-800 mb-4 flex items-center">
-                    <Calendar className="w-6 h-6 mr-2 text-yellow-500" />
+                    <Calendar className="w-6 h-6 mr-2 text-tertiary" />
                     Special Events
                   </h3>
                   <div className="space-y-3 text-gray-600">

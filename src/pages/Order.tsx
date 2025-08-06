@@ -167,14 +167,14 @@ const Order = () => {
                 <Button
                   variant={orderType === 'pickup' ? 'default' : 'outline'}
                   onClick={() => setOrderType('pickup')}
-                  className="bg-yellow-500 hover:bg-yellow-400 text-green-800"
+                  className="bg-tertiary hover:bg-yellow-400 text-green-800"
                 >
                   Pickup
                 </Button>
                 <Button
                   variant={orderType === 'delivery' ? 'default' : 'outline'}
                   onClick={() => setOrderType('delivery')}
-                  className="bg-yellow-500 hover:bg-yellow-400 text-green-800"
+                  className="bg-tertiary hover:bg-yellow-400 text-green-800"
                 >
                   Delivery
                 </Button>
@@ -205,7 +205,7 @@ const Order = () => {
                           <div className="flex justify-between items-center">
                             <div className="flex-1">
                               <h3 className="font-semibold text-green-800">{item.name}</h3>
-                              <p className="text-lg font-bold text-yellow-600">${item.price}</p>
+                              <p className="text-lg font-bold text-secondary">${item.price}</p>
                             </div>
                             <div className="flex items-center space-x-2">
                               <Button
@@ -220,7 +220,7 @@ const Order = () => {
                               <Button
                                 size="sm"
                                 onClick={() => addToCart(item.id)}
-                                className="bg-yellow-500 hover:bg-yellow-400 text-green-800"
+                                className="bg-tertiary hover:bg-yellow-400 text-green-800"
                               >
                                 <Plus className="w-4 h-4" />
                               </Button>
@@ -271,7 +271,7 @@ const Order = () => {
                       <div className="border-t pt-4 mb-6">
                         <div className="flex justify-between items-center text-lg font-bold">
                           <span>Total:</span>
-                          <span className="text-yellow-600">${getCartTotal().toFixed(2)}</span>
+                          <span className="text-secondary">${getCartTotal().toFixed(2)}</span>
                         </div>
                       </div>
                     </>
