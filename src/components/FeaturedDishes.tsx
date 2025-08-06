@@ -1,30 +1,31 @@
-
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
+import { motion, easeOut } from 'framer-motion'
 
 const FeaturedDishes = () => {
   const dishes = [
     {
-      name: "Lemon Herb Grilled Chicken",
-      description: "Tender chicken breast marinated in lemon, herbs, and Mediterranean spices",
-      price: "$24.99",
-      image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      name: 'Lemon Herb Grilled Chicken',
+      description: 'Tender chicken breast marinated in lemon, herbs, and Mediterranean spices',
+      price: '$24.99',
+      image:
+        'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
-      name: "Mediterranean Seafood Pasta",
-      description: "Fresh seafood with cherry tomatoes, olives, and feta cheese in olive oil",
-      price: "$28.99",
-      image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      name: 'Mediterranean Seafood Pasta',
+      description: 'Fresh seafood with cherry tomatoes, olives, and feta cheese in olive oil',
+      price: '$28.99',
+      image:
+        'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
-      name: "Greek-Style Lamb Chops",
-      description: "Grilled lamb chops with rosemary, garlic, and lemon zest",
-      price: "$32.99",
-      image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      name: 'Greek-Style Lamb Chops',
+      description: 'Grilled lamb chops with rosemary, garlic, and lemon zest',
+      price: '$32.99',
+      image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     }
-  ];
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -34,21 +35,21 @@ const FeaturedDishes = () => {
         staggerChildren: 0.2
       }
     }
-  };
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.6, ease: easeOut }
     }
-  };
+  }
 
   return (
     <section className="py-16">
       <div className="max-w-6xl mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -58,8 +59,8 @@ const FeaturedDishes = () => {
           <h2 className="text-4xl font-bold mb-4 text-green-800">Featured Dishes</h2>
           <p className="text-lg text-gray-600">Discover our chef's signature creations</p>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="grid md:grid-cols-3 gap-8"
           initial="hidden"
           whileInView="visible"
@@ -70,16 +71,12 @@ const FeaturedDishes = () => {
             <motion.div key={index} variants={itemVariants}>
               <Card className="border-none shadow-lg hover:shadow-xl transition-shadow group overflow-hidden">
                 <CardContent className="p-0">
-                  <motion.div 
+                  <motion.div
                     className="h-48 bg-gray-200 overflow-hidden"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <img 
-                      src={dish.image} 
-                      alt={dish.name}
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" />
                   </motion.div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold mb-2 text-green-800">{dish.name}</h3>
@@ -93,8 +90,8 @@ const FeaturedDishes = () => {
             </motion.div>
           ))}
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="text-center mt-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -109,7 +106,7 @@ const FeaturedDishes = () => {
         </motion.div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default FeaturedDishes;
+export default FeaturedDishes

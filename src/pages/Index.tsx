@@ -1,14 +1,11 @@
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Star, Clock, MapPin, Phone } from "lucide-react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
-import FeaturedDishes from "@/components/FeaturedDishes";
-import About from "@/components/About";
-import Footer from "@/components/Footer";
+import { Card, CardContent } from '@/components/ui/card'
+import { Star, Clock, MapPin, Phone } from 'lucide-react'
+import { motion, easeOut } from 'framer-motion'
+import Navigation from '@/components/Navigation'
+import Hero from '@/components/Hero'
+import FeaturedDishes from '@/components/FeaturedDishes'
+import About from '@/components/About'
+import Footer from '@/components/Footer'
 
 const Index = () => {
   const containerVariants = {
@@ -19,16 +16,16 @@ const Index = () => {
         staggerChildren: 0.2
       }
     }
-  };
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.6, ease: easeOut }
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -36,11 +33,11 @@ const Index = () => {
       <Hero />
       <About />
       <FeaturedDishes />
-      
+
       {/* Reviews Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold text-center mb-12 text-green-800"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +46,7 @@ const Index = () => {
           >
             What Our Customers Say
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-3 gap-8"
             initial="hidden"
             whileInView="visible"
@@ -58,33 +55,32 @@ const Index = () => {
           >
             {[
               {
-                name: "Sarah Johnson",
+                name: 'Sarah Johnson',
                 rating: 5,
-                review: "Amazing Mediterranean food! The lemon herb chicken is absolutely divine.",
-                avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b550?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+                review: 'Amazing Mediterranean food! The lemon herb chicken is absolutely divine.',
+                avatar:
+                  'https://images.unsplash.com/photo-1494790108755-2616b612b550?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
               },
               {
-                name: "Mike Chen",
+                name: 'Mike Chen',
                 rating: 5,
-                review: "Best restaurant in Chicago! Fresh ingredients and incredible flavors.",
-                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+                review: 'Best restaurant in Chicago! Fresh ingredients and incredible flavors.',
+                avatar:
+                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
               },
               {
-                name: "Emma Davis",
+                name: 'Emma Davis',
                 rating: 5,
-                review: "The atmosphere is perfect for date nights. Highly recommend the seafood pasta!",
-                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+                review: 'The atmosphere is perfect for date nights. Highly recommend the seafood pasta!',
+                avatar:
+                  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
               }
             ].map((review, index) => (
               <motion.div key={index} variants={itemVariants}>
                 <Card className="border-none shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <img 
-                        src={review.avatar} 
-                        alt={review.name}
-                        className="w-12 h-12 rounded-full mr-4 object-cover"
-                      />
+                      <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full mr-4 object-cover" />
                       <div>
                         <p className="font-semibold text-green-800">{review.name}</p>
                         <div className="flex">
@@ -106,7 +102,7 @@ const Index = () => {
       {/* Location & Hours */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 gap-12"
             initial="hidden"
             whileInView="visible"
@@ -134,12 +130,9 @@ const Index = () => {
                 </div>
               </div>
             </motion.div>
-            <motion.div 
-              className="bg-gray-200 rounded-lg h-64 overflow-hidden"
-              variants={itemVariants}
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+            <motion.div className="bg-gray-200 rounded-lg h-64 overflow-hidden" variants={itemVariants}>
+              <img
+                src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                 alt="Chicago Street View"
                 className="w-full h-full object-cover"
               />
@@ -150,7 +143,7 @@ const Index = () => {
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

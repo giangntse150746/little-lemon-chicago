@@ -1,7 +1,6 @@
-
-import { Card, CardContent } from "@/components/ui/card";
-import { Leaf, Users, Award } from "lucide-react";
-import { motion } from "framer-motion";
+import { Card, CardContent } from '@/components/ui/card'
+import { Leaf, Users, Award } from 'lucide-react'
+import { motion, easeOut } from 'framer-motion'
 
 const About = () => {
   const containerVariants = {
@@ -12,21 +11,21 @@ const About = () => {
         staggerChildren: 0.2
       }
     }
-  };
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.6, ease: easeOut }
     }
-  };
+  }
 
   return (
     <section className="py-16 bg-green-50">
       <div className="max-w-6xl mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="grid lg:grid-cols-2 gap-12 items-center mb-12"
           initial="hidden"
           whileInView="visible"
@@ -36,28 +35,24 @@ const About = () => {
           <motion.div variants={itemVariants}>
             <h2 className="text-4xl font-bold mb-4 text-green-800">About Little Lemon</h2>
             <p className="text-lg text-gray-600 mb-6">
-              Since 1995, Little Lemon has been serving Chicago's finest Mediterranean cuisine. 
-              We combine traditional recipes with fresh, locally-sourced ingredients to create 
-              an unforgettable dining experience.
+              Since 1995, Little Lemon has been serving Chicago's finest Mediterranean cuisine. We combine traditional
+              recipes with fresh, locally-sourced ingredients to create an unforgettable dining experience.
             </p>
             <p className="text-gray-600">
-              Our family-owned restaurant brings the authentic flavors of the Mediterranean 
-              to your table, using time-honored recipes passed down through generations.
+              Our family-owned restaurant brings the authentic flavors of the Mediterranean to your table, using
+              time-honored recipes passed down through generations.
             </p>
           </motion.div>
-          <motion.div 
-            className="h-80 bg-gray-200 rounded-lg overflow-hidden"
-            variants={itemVariants}
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+          <motion.div className="h-80 bg-gray-200 rounded-lg overflow-hidden" variants={itemVariants}>
+            <img
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
               alt="Little Lemon Restaurant Interior"
               className="w-full h-full object-cover"
             />
           </motion.div>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="grid md:grid-cols-3 gap-8"
           initial="hidden"
           whileInView="visible"
@@ -75,7 +70,7 @@ const About = () => {
               </CardContent>
             </Card>
           </motion.div>
-          
+
           <motion.div variants={itemVariants}>
             <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
               <CardContent className="p-6 text-center">
@@ -87,7 +82,7 @@ const About = () => {
               </CardContent>
             </Card>
           </motion.div>
-          
+
           <motion.div variants={itemVariants}>
             <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
               <CardContent className="p-6 text-center">
@@ -102,7 +97,7 @@ const About = () => {
         </motion.div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default About;
+export default About

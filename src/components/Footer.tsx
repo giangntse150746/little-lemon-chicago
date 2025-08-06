@@ -1,5 +1,4 @@
-
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -7,17 +6,17 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <img 
-              src="/lovable-uploads/b39ca12f-4c13-4645-859a-87be54755c5f.png" 
-              alt="Little Lemon Logo" 
+            <img
+              src="/lovable-uploads/b39ca12f-4c13-4645-859a-87be54755c5f.png"
+              alt="Little Lemon Logo"
               className="h-12 mb-4 brightness-0 invert"
             />
             <p className="text-green-100">
-              Serving Chicago's finest Mediterranean cuisine since 1995. 
-              Experience the authentic flavors of the Mediterranean.
+              Serving Chicago's finest Mediterranean cuisine since 1995. Experience the authentic flavors of the
+              Mediterranean.
             </p>
           </div>
-          
+
           <div>
             <h3 className="text-xl font-semibold mb-4">Contact Info</h3>
             <div className="space-y-2">
@@ -35,7 +34,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          
+
           <div>
             <h3 className="text-xl font-semibold mb-4">Hours</h3>
             <div className="space-y-2 text-green-100">
@@ -50,15 +49,13 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="border-t border-green-700 mt-8 pt-8 text-center">
-          <p className="text-green-100">
-            © 2024 Little Lemon Restaurant. All rights reserved.
-          </p>
+          <p className="text-green-100">© 2024 Little Lemon Restaurant. All rights reserved.</p>
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
