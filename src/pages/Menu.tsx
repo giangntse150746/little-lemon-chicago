@@ -6,14 +6,19 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion'
-import { useState, useMemo } from 'react'
-import { Search, Star, Clock, MapPin, Phone, Heart } from 'lucide-react'
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react'
+import { Search, Star, Clock, MapPin, Phone, Heart, Loader2 } from 'lucide-react'
 import { getImagePath } from '@/data/menuImages'
 
 const Menu = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [favorites, setFavorites] = useState<string[]>([])
+  const [displayedItems, setDisplayedItems] = useState(10)
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+  const loadingRef = useRef<HTMLDivElement>(null)
 
   const menuCategories = [
     {
@@ -230,6 +235,55 @@ const Menu = () => {
     )
   }, [searchTerm, selectedCategory, menuCategories])
 
+  // Reset displayed items when filters change
+  useEffect(() => {
+    setDisplayedItems(10)
+    setHasMore(filteredItems.length > 10)
+  }, [filteredItems.length])
+
+  // Lazy load function
+  const loadMoreItems = useCallback(() => {
+    if (isLoading || !hasMore) return
+
+    setIsLoading(true)
+
+    // Simulate loading delay
+    setTimeout(() => {
+      const newDisplayedItems = Math.min(displayedItems + 10, filteredItems.length)
+      setDisplayedItems(newDisplayedItems)
+      setHasMore(newDisplayedItems < filteredItems.length)
+      setIsLoading(false)
+    }, 500)
+  }, [isLoading, hasMore, displayedItems, filteredItems.length])
+
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect()
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          loadMoreItems()
+        }
+      },
+      {
+        rootMargin: '100px'
+      }
+    )
+
+    if (loadingRef.current) {
+      observerRef.current.observe(loadingRef.current)
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
+    }
+  }, [loadMoreItems, hasMore, isLoading])
+
   const toggleFavorite = (itemName: string) => {
     setFavorites((prev) => (prev.includes(itemName) ? prev.filter((name) => name !== itemName) : [...prev, itemName]))
   }
@@ -252,6 +306,8 @@ const Menu = () => {
       transition: { duration: 0.5, ease: cubicBezier(0.23, 1, 0.32, 1) }
     }
   }
+
+  const displayedFilteredItems = filteredItems.slice(0, displayedItems)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-yellow-50">
@@ -281,7 +337,7 @@ const Menu = () => {
             Our Menu
           </motion.h1>
           <motion.p
-            className="text-2xl text-white drop-shadow-lg mb-8 max-w-2xl mx-auto"
+            className="text-xl text-white drop-shadow-lg mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -291,20 +347,20 @@ const Menu = () => {
 
           {/* Search and Filter Bar */}
           <motion.div
-            className="max-w-2xl mx-auto bg-white rounded-full shadow-2xl p-2"
+            className="max-w-3xl mx-auto bg-white rounded-full shadow-2xl p-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <div className="flex items-center gap-2">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-green-700 w-5 h-5" />
                 <Input
                   type="text"
                   placeholder="Search for dishes..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 border-0 focus:ring-0 text-lg"
+                  className="pl-10 border-green-700 focus:!ring-0 text-lg rounded-3xl"
                 />
               </div>
               <div className="flex gap-2">
@@ -489,7 +545,7 @@ const Menu = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="text-gray-600">
-              Showing {filteredItems.length} items
+              Showing {displayedFilteredItems.length} of {filteredItems.length} items
               {searchTerm && ` for "${searchTerm}"`}
               {selectedCategory !== 'All' && ` in ${selectedCategory}`}
             </p>
@@ -505,12 +561,12 @@ const Menu = () => {
               animate="visible"
               variants={containerVariants}
             >
-              {filteredItems.map((item, itemIndex) => (
+              {displayedFilteredItems.map((item, itemIndex) => (
                 <motion.div key={`${item.name}-${itemIndex}`} variants={itemVariants}>
                   <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group bg-white">
-                    <CardContent className="p-0">
-                      <div className="flex">
-                        <div className="w-40 h-40 flex-shrink-0 relative">
+                    <CardContent className="p-0 h-full">
+                      <div className="flex flex-col h-full">
+                        <div className="h-60 flex-shrink-0 relative overflow-hidden">
                           <img
                             src={item.image}
                             alt={item.name}
@@ -561,6 +617,24 @@ const Menu = () => {
             </motion.div>
           </AnimatePresence>
 
+          {/* Loading Indicator */}
+          {hasMore && (
+            <motion.div
+              ref={loadingRef}
+              className="flex justify-center items-center py-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="flex items-center gap-3 text-green-600">
+                <Loader2 className="w-6 h-6 animate-spin" />
+                <span className="text-lg font-medium">
+                  {isLoading ? 'Loading more dishes...' : 'Scroll to load more'}
+                </span>
+              </div>
+            </motion.div>
+          )}
+
           {/* No Results Message */}
           {filteredItems.length === 0 && (
             <motion.div
@@ -583,12 +657,26 @@ const Menu = () => {
               </Button>
             </motion.div>
           )}
+
+          {/* End of Results Message */}
+          {!hasMore && displayedFilteredItems.length > 0 && (
+            <motion.div
+              className="text-center py-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="text-4xl mb-4">🎉</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">You've seen all our dishes!</h3>
+              <p className="text-gray-600">Thanks for exploring our menu</p>
+            </motion.div>
+          )}
         </main>
       </div>
 
       {/* Enhanced Order Online CTA */}
       <motion.section
-        className="py-20 bg-gradient-to-r from-green-600 to-green-700 relative overflow-hidden"
+        className="py-20 bg-gradient-to-r from-gray-100 to-gray-200 relative overflow-hidden"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -597,7 +685,7 @@ const Menu = () => {
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <motion.h2
-            className="text-4xl font-bold text-white mb-6"
+            className="text-4xl font-bold text-primary mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -606,7 +694,7 @@ const Menu = () => {
             Ready to Experience Mediterranean Magic?
           </motion.h2>
           <motion.p
-            className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
+            className="text-xl text-primary opacity-50 mb-8 max-w-xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -624,18 +712,11 @@ const Menu = () => {
             <Link to="/order">
               <Button
                 size="lg"
-                className="bg-tertiary hover:bg-yellow-400 text-green-800 px-8 py-4 text-lg font-bold shadow-xl"
+                className="bg-primary hover:bg-yellow-400 hover:text-primary px-8 py-4 text-lg font-bold shadow-lg"
               >
                 Order Online Now
               </Button>
             </Link>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-green-800 px-8 py-4 text-lg font-bold"
-            >
-              View Full Menu
-            </Button>
           </motion.div>
         </div>
       </motion.section>

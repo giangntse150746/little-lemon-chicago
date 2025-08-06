@@ -128,7 +128,7 @@ const Order = () => {
 
       {/* Hero Section */}
       <motion.section
-        className="bg-gradient-to-r from-green-600 to-green-700 py-16"
+        className="bg-gradient-to-r from-green-600 to-green-700 py-24"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
