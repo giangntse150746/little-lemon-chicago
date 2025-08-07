@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <img
-              src="/lovable-uploads/b39ca12f-4c13-4645-859a-87be54755c5f.png"
+              src="/images/logo.png"
               alt="Little Lemon Logo"
               className="w-3/4 mb-4 brightness-0 invert -translate-y-4"
             />

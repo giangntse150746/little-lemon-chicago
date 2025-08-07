@@ -27,7 +27,7 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="/lovable-uploads/b39ca12f-4c13-4645-859a-87be54755c5f.png"
+              src="/images/logo.png"
               alt="Little Lemon Logo"
               className={`transition-all duration-300 ${
                 isScrolled ? 'h-10 brightness-100' : 'h-12 brightness-0 invert'
