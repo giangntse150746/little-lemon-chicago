@@ -1,6 +1,3 @@
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
-
-const prisma = new PrismaClient().$extends(withAccelerate())
-
-export default prisma
+// This file is no longer needed since we're using a server
+// The Prisma client is now used in server/index.js
+export {}

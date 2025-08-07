@@ -6,7 +6,6 @@ import { Calendar, Clock, Users } from 'lucide-react'
 import { motion, easeOut } from 'framer-motion'
 
 const Reserve = () => {
-
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -17,7 +16,7 @@ const Reserve = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-green-800/10">
       <Navigation />
 
       {/* Hero Section */}
@@ -47,14 +46,14 @@ const Reserve = () => {
         </div>
       </motion.section>
 
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-2 gap-12">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="flex flex-col md:flex-row gap-12">
           {/* Reservation Form */}
-          <BookingForm />
+          <BookingForm className="flex-1" />
 
           {/* Info Section */}
           <motion.div
-            className="space-y-8"
+            className="w-2/5 flex flex-col gap-8"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
