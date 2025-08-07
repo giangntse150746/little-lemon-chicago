@@ -1,5 +1,3 @@
-import prisma from '@/utils/prisma'
-
 export interface CustomerData {
   name: string
   email: string
@@ -15,14 +13,9 @@ export interface CustomerResponse {
 // Get customer by email
 export const getCustomerByEmail = async (email: string) => {
   try {
-    const customer = await prisma.customer.findUnique({
-      where: { email },
-      include: {
-        reservations: true,
-        orders: true
-      }
-    })
-    return customer
+    const response = await fetch(`http://localhost:3001/api/customers/${encodeURIComponent(email)}`)
+    if (!response.ok) return null
+    return await response.json()
   } catch (error) {
     console.error('Error fetching customer:', error)
     return null
@@ -32,17 +25,9 @@ export const getCustomerByEmail = async (email: string) => {
 // Get all customers
 export const getAllCustomers = async () => {
   try {
-    const customers = await prisma.customer.findMany({
-      include: {
-        reservations: {
-          orderBy: { createdAt: 'desc' }
-        },
-        orders: {
-          orderBy: { createdAt: 'desc' }
-        }
-      }
-    })
-    return customers
+    const response = await fetch('http://localhost:3001/api/customers')
+    if (!response.ok) return []
+    return await response.json()
   } catch (error) {
     console.error('Error fetching customers:', error)
     return []
@@ -52,29 +37,26 @@ export const getAllCustomers = async () => {
 // Create new customer
 export const createCustomer = async (data: CustomerData): Promise<CustomerResponse> => {
   try {
-    const customer = await prisma.customer.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone
-      }
+    const response = await fetch('http://localhost:3001/api/customers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
     })
 
-    return {
-      success: true,
-      message: 'Customer created successfully',
-      customerId: customer.id
-    }
-  } catch (error) {
-    console.error('Error creating customer:', error)
-    
-    if (error instanceof Error && error.message.includes('Unique constraint')) {
+    const result = await response.json()
+
+    if (!response.ok) {
       return {
         success: false,
-        message: 'A customer with this email already exists'
+        message: result.message || 'Failed to create customer'
       }
     }
-    
+
+    return result
+  } catch (error) {
+    console.error('Error creating customer:', error)
     return {
       success: false,
       message: 'Failed to create customer'
