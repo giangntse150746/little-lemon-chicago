@@ -81,7 +81,7 @@ app.post('/api/reservations', async (req, res) => {
     })
   } catch (error) {
     console.error('Error creating reservation:', error)
-    
+
     if (error.message.includes('Unique constraint')) {
       return res.status(400).json({
         success: false,
@@ -107,7 +107,7 @@ app.get('/api/reservations', async (req, res) => {
         createdAt: 'desc'
       }
     })
-    
+
     res.json(reservations)
   } catch (error) {
     console.error('Error fetching reservations:', error)
@@ -129,14 +129,14 @@ app.get('/api/customers/:email', async (req, res) => {
         orders: true
       }
     })
-    
+
     if (!customer) {
       return res.status(404).json({
         success: false,
         message: 'Customer not found'
       })
     }
-    
+
     res.json(customer)
   } catch (error) {
     console.error('Error fetching customer:', error)
@@ -160,7 +160,7 @@ app.get('/api/customers', async (req, res) => {
         }
       }
     })
-    
+
     res.json(customers)
   } catch (error) {
     console.error('Error fetching customers:', error)
@@ -208,7 +208,7 @@ app.post('/api/customers', async (req, res) => {
     })
   } catch (error) {
     console.error('Error creating customer:', error)
-    
+
     if (error.message.includes('Unique constraint')) {
       return res.status(400).json({
         success: false,
@@ -227,4 +227,4 @@ const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
-}) 
+})

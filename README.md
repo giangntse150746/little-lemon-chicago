@@ -1,5 +1,6 @@
 # Little Lemon Chicago
 
+
 A modern restaurant website built with React, TypeScript, and Prisma.
 
 ## Features
