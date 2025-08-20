@@ -31,7 +31,7 @@ const Hero = () => {
           Little Lemon
         </motion.h1>
         <motion.p
-          className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow"
+          className="text-xl md:text-2xl max-w-2xl mb-8 mx-auto px-4 drop-shadow"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -39,7 +39,7 @@ const Hero = () => {
           Authentic Mediterranean Cuisine in the Heart of Chicago
         </motion.p>
         <motion.div
-          className="space-x-4"
+          className="flex flex-col md:flex-row gap-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}

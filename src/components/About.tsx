@@ -49,15 +49,15 @@ const About = () => {
           variants={containerVariants}
         >
           <motion.div variants={itemVariants}>
-            <h2 className="text-4xl font-bold mb-4 text-secondary">About Little Lemon</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-secondary">About Little Lemon</h2>
             <motion.div variants={itemDelayVariants}>
-              <p className="text-lg text-primary opacity-75 mb-6">
+              <p className="text-base md:text-lg text-primary opacity-75 mb-2 md:mb-6">
                 Since 1995, Little Lemon has been serving Chicago's finest Mediterranean cuisine. We combine traditional
                 recipes with fresh, locally-sourced ingredients to create an unforgettable dining experience.
               </p>
             </motion.div>
             <motion.div variants={itemDelay2Variants}>
-              <p className="text-lg text-primary opacity-75">
+              <p className="text-base md:text-lg text-primary opacity-75">
                 Our family-owned restaurant brings the authentic flavors of the Mediterranean to your table, using
                 time-honored recipes passed down through generations.
               </p>

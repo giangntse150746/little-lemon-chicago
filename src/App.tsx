@@ -9,6 +9,7 @@ import Menu from './pages/Menu'
 import Order from './pages/Order'
 import Reserve from './pages/Reserve'
 import NotFound from './pages/NotFound'
+import '@/assets/styles/global.css'
 
 const queryClient = new QueryClient()
 
