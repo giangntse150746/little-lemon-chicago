@@ -55,8 +55,8 @@ const FeaturedDishes = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl font-bold mb-4 text-green-800">Featured Dishes</h2>
-          <p className="text-lg text-gray-600">Discover our chef's signature creations</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-green-800">Featured Dishes</h2>
+          <p className="text-base md:text-lg text-gray-600">Discover our chef's signature creations</p>
         </motion.div>
 
         <motion.div

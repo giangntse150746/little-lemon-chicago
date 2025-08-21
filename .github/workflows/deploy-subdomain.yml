@@ -1,0 +1,78 @@
+name: 🚀 Deploy as a subdomain to Nginx | Dellbuntu
+
+on:
+  push:
+    branches:
+      - release
+
+permissions:
+  actions: write
+  contents: read
+
+env:
+  ORIGIN_SERVER_NAME: 'justdemo.work'
+  PROJECT_NAME: 'little-lemon'
+  # BASE_API_URL: "/api"
+
+jobs:
+  # Build on Github Ubuntu to save the resource
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build frontend
+        run: |
+          npm i --legacy-peer-deps
+          npm run build
+          # Replace placeholder with actual server name
+          sed -i "s/\${NGINX_SERVER_NAME}/${{ env.PROJECT_NAME }}.${{ env.ORIGIN_SERVER_NAME }}/g" nginx.conf
+          cp nginx.conf dist/
+
+      - name: Upload built artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PROJECT_NAME }}-dist
+          path: dist
+
+  # Deploy to Dellbuntu | My Home Server
+  # NOTE: This requires passwordless sudo for gh-runner user
+  # Run on server: sudo visudo and add: gh-runner ALL=(ALL) NOPASSWD: ALL
+  deploy-frontend:
+    runs-on: [self-hosted, home, dellbuntu]
+    needs: build-frontend
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PROJECT_NAME }}-dist
+          path: dist
+
+      - name: Prepare nginx deploy path
+        run: |
+          sudo mkdir -p /var/www/${{ env.PROJECT_NAME }}
+          sudo chown -R gh-runner:gh-runner /var/www/${{ env.PROJECT_NAME }}
+
+      - name: Deploy frontend to nginx folder
+        run: |
+          sudo rm -rf /var/www/${{ env.PROJECT_NAME }}/dist
+          sudo cp -r dist /var/www/${{ env.PROJECT_NAME }}/dist
+
+          sudo cp -r dist/nginx.conf /etc/nginx/sites-available/${{ env.PROJECT_NAME }}.conf
+          
+          # Uncomment the line below if build as a standalone
+          sudo ln -sf /etc/nginx/sites-available/${{ env.PROJECT_NAME }}.conf /etc/nginx/sites-enabled/${{ env.PROJECT_NAME }}.conf
+
+          sudo nginx -t
+          sudo systemctl restart nginx
+
+      - name: Cleanup downloaded artifacts
+        if: success()
+        run: |
+          # Clean up downloaded artifacts from runner
+          rm -rf dist
+          # Clean up any temporary files
+          rm -rf /tmp/${{ env.PROJECT_NAME }}-* || true

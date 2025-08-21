@@ -38,7 +38,7 @@ const Index = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2
-            className="text-3xl font-bold text-center mb-12 text-secondary"
+            className="text-3xl md:text-4xl font-bold text-center mb-12 text-secondary"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -59,14 +59,7 @@ const Index = () => {
                 rating: 5,
                 review: 'Amazing Mediterranean food! The lemon herb chicken is absolutely divine.',
                 avatar:
-                  'https://images.unsplash.com/photo-1494790108755-2616b612b550?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
-              },
-              {
-                name: 'Mike Chen',
-                rating: 5,
-                review: 'Best restaurant in Chicago! Fresh ingredients and incredible flavors.',
-                avatar:
-                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
+                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
               },
               {
                 name: 'Emma Davis',
@@ -74,6 +67,13 @@ const Index = () => {
                 review: 'The atmosphere is perfect for date nights. Highly recommend the seafood pasta!',
                 avatar:
                   'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
+              },
+              {
+                name: 'Mike Chen',
+                rating: 5,
+                review: 'Best restaurant in Chicago! Fresh ingredients and incredible flavors.',
+                avatar:
+                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
               }
             ].map((review, index) => (
               <motion.div key={index} variants={itemVariants}>
@@ -110,7 +110,7 @@ const Index = () => {
             variants={containerVariants}
           >
             <motion.div variants={itemVariants}>
-              <h2 className="text-3xl font-bold mb-8 text-green-800">Visit Us</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-green-800">Visit Us</h2>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <MapPin className="w-6 h-6 text-tertiary mr-3" />
